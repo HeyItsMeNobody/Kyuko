@@ -4,8 +4,18 @@ const config = require('./config.json');
 const client = new Discord.Client();
 const commands = new  Discord.Collection();
 
+const activities_list = [
+    "with fayer",
+    "with javascript",
+    "with life"
+]
+
 client.on('ready', () => {
     console.log(`I logged in as ${client.user.tag}!~`);
+    setInterval(() => {
+        const index = Math.floor(Math.random() * (activities_list.length - 1) + 1);
+        client.user.setActivity(activities_list[index]);
+    }, 60000);
 });
 
 fs.readdir("./cmds/", (err, files) => {
