@@ -5,19 +5,37 @@ const config = require('./config.json');
 const client = new Discord.Client();
 const commands = new  Discord.Collection();
 
-// const activities_list = [
-//     "with fayer",
-//     "with javascript",
-//     "with love",
-//     "with a loli"
-// ]
-
 client.on('ready', () => {
     console.log(`I logged in as ${client.user.tag}!~`);
-    // setInterval(() => {
-    //     const index = Math.floor(Math.random() * (activities_list.length - 1) + 1);
-    //     client.user.setActivity(activities_list[index]);
-    // }, 60000);
+    client.guilds.forEach(guild => {
+        var con = mysql.createConnection({
+            host: config.mysqlhost,
+            user: config.mysqluser,
+            password: config.mysqlpassword,
+            database: config.mysqldatabase
+        });
+        con.connect(function(err) {
+            if (err) {
+                console.log(err)
+                return;
+            }
+            // SELECT 1 FROM whitelist WHERE ServerID = '666' ORDER BY ServerID LIMIT 1
+            var sql = `SELECT 1 FROM whitelist WHERE ServerID = '${guild.id}' ORDER BY ServerID LIMIT 1`;
+            con.query(sql, function (err, result) {
+                if (err) {
+                    console.log(err)
+                    return;
+                }
+                if (result.length > 0) {
+                } else {
+                    console.log("Someone invited the bot while they are not whitelisted, Maybe figure that out?");
+                    guild.members.get(guild.ownerID).send("The server you tried to add me to is not whitelisted!")
+                    guild.leave();
+                    return;
+                }
+            });
+        })
+    });
 });
 
 fs.readdir("./cmds/", (err, files) => {
@@ -71,7 +89,7 @@ client.on("guildCreate", guild => {
             }
             if (result.length > 0) {
                 const embed = { 
-                    "title": "Thank you for inviting me~!", "description": "Why don't you join our [server](https://discord.gg/PRk9sdg) and if you need help pls join [the support server](https://discord.gg/PRk9sdg) ~☆ ", "url": "", "color": 12168425, 
+                    "title": "Thank you for inviting me~!", "description": "Why don't you join our [home server](https://discord.gg/PRk9sdg) and if you need help and left the support server pls rejoin [the server](https://discord.gg/PRk9sdg) ~☆ ", "url": "", "color": 12168425, 
                     "timestamp": "2018-10-11T07:53:55.490Z", "footer": { 
                     "text": "Spreading love faster than the speed of light~♡" 
                     
@@ -83,7 +101,7 @@ client.on("guildCreate", guild => {
                      }, 
                     
                     "fields": [ 
-                    { "name": "**Credits**", "value": "**Profile picture:** \nVia pinterest \n\n**Server Owners:** \nCattery: fayercx#2931 \nSupport Server:fayercx#2931 \n\n**Bot developer:** nobodycx#0384\n\n~~fayercx just does embeds~~" 
+                    { "name": "**Credits**", "value": "**Profile picture:** \nVia pintrest \n\n**Server Owners:** \nCattery: fayercx#2931 \nSupport Server:fayercx#2931 \n\n**Bot developer:** nobodycx#0384\n\n~~fayercx just does embeds~~" 
                     
                     }
                     
