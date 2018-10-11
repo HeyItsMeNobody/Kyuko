@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const mysql = require('mysql');
 const config = require('./config.json');
 const client = new Discord.Client();
 const commands = new  Discord.Collection();
@@ -49,26 +50,54 @@ client.on("message", async message => {
 
 client.on("guildCreate", guild => {
     console.log("Joined a guild: " + guild.name);
-    const embed = { 
-        "title": "Thank you for inviting me~!", "description": "Why don't you join our [server](https://discord.gg/PRk9sdg) and if you need help pls join [the support server](https://discord.gg/PRk9sdg) ~☆ ", "url": "", "color": 12168425, 
-        "timestamp": "2018-10-11T07:53:55.490Z", "footer": { 
-        "text": "Spreading love faster than the speed of light~♡" 
-        
-        }, 
-        
-        "author": { 
-        "name": "Kyuko version 1.0.0 공주님 ", "url": "", "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
-        
-         }, 
-        
-        "fields": [ 
-        { "name": "**Credits**", "value": "**Profile picture:** \nVia pintrest \n\n**Server Owners:** \nCattery: fayercx#2931 \nSupport Server:fayercx#2931 \n\n**Bot developer:** nobodycx#0384\n\n~~fayercx just does embeds~~" 
-        
+
+    var con = mysql.createConnection({
+        host: config.mysqlhost,
+        user: config.mysqluser,
+        password: config.mysqlpassword,
+        database: config.mysqldatabase
+    });
+    con.connect(function(err) {
+        if (err) {
+            console.log(err)
+            return;
         }
-        
-         ] 
-        
-        }; guild.members.get(guild.ownerID).send("*what's this? a new server..? oh hello,~!*", { embed });
+        // SELECT 1 FROM whitelist WHERE ServerID = '666' ORDER BY ServerID LIMIT 1
+        var sql = `SELECT 1 FROM whitelist WHERE ServerID = '${guild.id}' ORDER BY ServerID LIMIT 1`;
+        con.query(sql, function (err, result) {
+            if (err) {
+                console.log(err)
+                return;
+            }
+            if (result.length > 0) {
+                const embed = { 
+                    "title": "Thank you for inviting me~!", "description": "Why don't you join our [server](https://discord.gg/PRk9sdg) and if you need help pls join [the support server](https://discord.gg/PRk9sdg) ~☆ ", "url": "", "color": 12168425, 
+                    "timestamp": "2018-10-11T07:53:55.490Z", "footer": { 
+                    "text": "Spreading love faster than the speed of light~♡" 
+                    
+                    }, 
+                    
+                    "author": { 
+                    "name": "Kyuko version 1.0.0 공주님 ", "url": "", "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+                    
+                     }, 
+                    
+                    "fields": [ 
+                    { "name": "**Credits**", "value": "**Profile picture:** \nVia pinterest \n\n**Server Owners:** \nCattery: fayercx#2931 \nSupport Server:fayercx#2931 \n\n**Bot developer:** nobodycx#0384\n\n~~fayercx just does embeds~~" 
+                    
+                    }
+                    
+                     ] 
+                    
+                    }; guild.members.get(guild.ownerID).send("*what's this? a new server..? oh hello,~!*", { embed });
+            } else {
+                console.log("Someone invited the bot while they are not whitelisted, Maybe figure that out?");
+                guild.members.get(guild.ownerID).send("The server you tried to add me to is not whitelisted!")
+                guild.leave();
+                return;
+            }
+        });
+    })
 })
 
 //Hello github!
