@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const config = require('./config.json');
+const mysql = require('mysql');
 const client = new Discord.Client();
 const commands = new  Discord.Collection();
 
@@ -40,9 +41,30 @@ client.on("message", async message => {
     let prefix = "k!";
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
+    let args = messageArray.slice(1);
 
     let commandfile = commands.get(cmd.slice(prefix.length));
-    if(commandfile) commandfile.run(client, message, messageArray)
+    if(commandfile) commandfile.run(client, message, messageArray, args)
 })
+
+client.on("guildCreate", guild => {
+    console.log("Joined a guild: " + guild.name);
+    var con = mysql.createConnection({
+        host: config.mysqlhost,
+        user: config.mysqluser,
+        password: config.mysqlpassword,
+        database: config.mysqldatabase
+    });
+    con.connect(function(err) {
+        if (err) console.log(err);
+
+        var sql = `INSERT INTO prefixes (ServerID, Prefix) VALUES ('${guild.id}', 'k!')`;
+        con.query(sql, function (err, result) {
+            if(err) console.log(err);
+        });
+    });
+})
+
 //Hello github!
+
 client.login(config.token);
