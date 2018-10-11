@@ -49,7 +49,26 @@ client.on("message", async message => {
 
 client.on("guildCreate", guild => {
     console.log("Joined a guild: " + guild.name);
-    guild.members.get(guild.ownerID).send("Hi! I'm Kyuko and i will be waiting in your server for you!~ *woosh*");
+    const embed = { 
+        "title": "Thank you for inviting me~!", "description": "Why don't you join our [server](https://discord.gg/PRk9sdg) and if you need help pls join [the support server](https://discord.gg/PRk9sdg) ~☆ ", "url": "", "color": 12168425, 
+        "timestamp": "2018-10-11T07:53:55.490Z", "footer": { 
+        "text": "Spreading love faster than the speed of light~♡" 
+        
+        }, 
+        
+        "author": { 
+        "name": "Kyuko version 1.0.0 공주님 ", "url": "", "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+        
+         }, 
+        
+        "fields": [ 
+        { "name": "**Credits**", "value": "**Profile picture:** \nVia pintrest \n\n**Server Owners:** \nCattery: fayercx#2931 \nSupport Server:fayercx#2931 \n\n**Bot developer:** nobodycx#0384\n\n~~fayercx just does embeds~~" 
+        
+        }
+        
+         ] 
+        
+        }; guild.members.get(guild.ownerID).send("*what's this? a new server..? oh hello,~!*", { embed });
 })
 
 //Hello github!
