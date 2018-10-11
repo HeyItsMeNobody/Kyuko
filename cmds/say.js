@@ -4,8 +4,9 @@ const client = new Discord.Client();
 
 module.exports.run = async (client, message, messageArray,args) => {
     const sayMessage = args.join(" ");
+    sayMessageFiltered = sayMessage.replace('@', '');
     message.delete().catch(O_o=>{});
-    message.channel.send(sayMessage);
+    message.channel.send(sayMessageFiltered);
 }
 
 module.exports.help = {
