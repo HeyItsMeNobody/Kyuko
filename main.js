@@ -4,19 +4,19 @@ const config = require('./config.json');
 const client = new Discord.Client();
 const commands = new  Discord.Collection();
 
-const activities_list = [
-    "with fayer",
-    "with javascript",
-    "with love",
-    "with a loli"
-]
+// const activities_list = [
+//     "with fayer",
+//     "with javascript",
+//     "with love",
+//     "with a loli"
+// ]
 
 client.on('ready', () => {
     console.log(`I logged in as ${client.user.tag}!~`);
-    setInterval(() => {
-        const index = Math.floor(Math.random() * (activities_list.length - 1) + 1);
-        client.user.setActivity(activities_list[index]);
-    }, 60000);
+    // setInterval(() => {
+    //     const index = Math.floor(Math.random() * (activities_list.length - 1) + 1);
+    //     client.user.setActivity(activities_list[index]);
+    // }, 60000);
 });
 
 fs.readdir("./cmds/", (err, files) => {
@@ -44,7 +44,7 @@ client.on("message", async message => {
     let args = messageArray.slice(1);
 
     let commandfile = commands.get(cmd.slice(prefix.length));
-    if(commandfile) commandfile.run(client, message, messageArray, args)
+    if(commandfile) commandfile.run(client, message, messageArray, args);
 })
 
 client.on("guildCreate", guild => {
