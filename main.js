@@ -1,14 +1,14 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const config = require('./config.json');
-const mysql = require('mysql');
 const client = new Discord.Client();
 const commands = new  Discord.Collection();
 
 const activities_list = [
     "with fayer",
     "with javascript",
-    "with life"
+    "with love",
+    "with a loli"
 ]
 
 client.on('ready', () => {
@@ -49,20 +49,7 @@ client.on("message", async message => {
 
 client.on("guildCreate", guild => {
     console.log("Joined a guild: " + guild.name);
-    var con = mysql.createConnection({
-        host: config.mysqlhost,
-        user: config.mysqluser,
-        password: config.mysqlpassword,
-        database: config.mysqldatabase
-    });
-    con.connect(function(err) {
-        if (err) console.log(err);
-
-        var sql = `INSERT INTO prefixes (ServerID, Prefix) VALUES ('${guild.id}', 'k!')`;
-        con.query(sql, function (err, result) {
-            if(err) console.log(err);
-        });
-    });
+    guild.members.get(guild.ownerID).send("Hi! I'm Kyuko and i will be waiting in your server for you!~ *woosh*");
 })
 
 //Hello github!
