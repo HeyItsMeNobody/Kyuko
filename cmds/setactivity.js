@@ -19,18 +19,24 @@ module.exports.run = async (client, message, messageArray, args) => {
             return;
         }
         if (messageArray[1] === "PLAYING") {
-            client.user.setActivity(messageArray[2] + " " + messageArray[3] + " " + messageArray[4], { type: 'PLAYING' });
-            message.channel.send(`Set the status as \`Playing ${messageArray[2] + " " + messageArray[3] + " " + messageArray[4]}\`~:heart:`);
+            const toSend = messageArray.splice(2);
+            const sayMessage = toSend.join(" ");
+            client.user.setActivity(sayMessage, { type: 'PLAYING' });
+            message.channel.send(`Set the status as \`Playing ${sayMessage}\`~:heart:`);
             return;
         }
         if (messageArray[1] === "LISTENING") {
-            client.user.setActivity(messageArray[2] + " " + messageArray[3] + " " + messageArray[4], { type: 'LISTENING' });
-            message.channel.send(`Set the status as \`Listening to ${messageArray[2] + " " + messageArray[3] + " " + messageArray[4]}\`~:heart:`);
+            const toSend = messageArray.splice(2);
+            const sayMessage = toSend.join(" ");
+            client.user.setActivity(sayMessage, { type: 'LISTENING' });
+            message.channel.send(`Set the status as \`Listening to ${sayMessage}\`~:heart:`);
             return;
         }
         if (messageArray[1] === "WATCHING") {
-            client.user.setActivity(messageArray[2] + " " + messageArray[3] + " " + messageArray[4], { type: 'WATCHING' });
-            message.channel.send(`Set the status as \`Watching ${messageArray[2] + " " + messageArray[3] + " " + messageArray[4]}\`~:heart:`);
+            const toSend = messageArray.splice(2);
+            const sayMessage = toSend.join(" ");
+            client.user.setActivity(sayMessage, { type: 'WATCHING' });
+            message.channel.send(`Set the status as \`Watching ${sayMessage}\`~:heart:`);
             return;
         }
         else message.channel.send("You spelled something wrong, So i ignored you >.<");

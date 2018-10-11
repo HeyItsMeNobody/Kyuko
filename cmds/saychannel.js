@@ -13,7 +13,7 @@ module.exports.run = async (client, message, messageArray,args) => {
         client.channels.get(`${messageArray[1]}`).send(sayMessage);
     }
     catch(err) {
-        message.channel.send("Uhoh! Something went wrong, Did you spell the channel(ID) right?");
+        message.channel.send("Uhoh! Something went wrong, Did you spell the channel ID right?");
     }
 }
 
