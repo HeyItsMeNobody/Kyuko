@@ -5,9 +5,11 @@ const client = new Discord.Client();
 module.exports.run = async (client, message, messageArray, args) => {
     if (!(message.author.id = "98485453258240000")) {
         message.channel.send(":x: You are not a bot moderator!");
+        return;
     }
     if (!(message.author.id = "304307395289415680")) {
         message.channel.send(":x: You are not a bot moderator!");
+        return;
     }
     else {
         if (!(messageArray[1])) {

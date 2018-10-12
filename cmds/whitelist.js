@@ -3,36 +3,76 @@ const mysql = require('mysql');
 const config = require('../config.json');
 
 module.exports.run = async (client, message, messageArray, args) => {
-        if (!(messageArray[1])) {
-            message.channel.send("Please specify a serverID *and be careful*");
+        if (!(message.author.id = "98485453258240000")) {
+            message.channel.send(":x: You are not a bot moderator!");
             return;
         }
-        var serverName = messageArray.splice(2);
-        if (!(serverName)) {
-            message.channel.send("Please specify the server's name *and be careful*");
+        if (!(message.author.id = "304307395289415680")) {
+            message.channel.send(":x: You are not a bot moderator!");
             return;
         }
-        var con = mysql.createConnection({
-            host: config.mysqlhost,
-            user: config.mysqluser,
-            password: config.mysqlpassword,
-            database: config.mysqldatabase
-        });
-        con.connect(function(err) {
-            if (err) {
-                console.log(err)
+        else{
+            if (messageArray[1] === "DELETE") {
+                if (!(messageArray[2])) {
+                    message.channel.send("Please specify a serverID to remove *and be careful*")
+                }
+                else {
+                    var con = mysql.createConnection({
+                        host: config.mysqlhost,
+                        user: config.mysqluser,
+                        password: config.mysqlpassword,
+                        database: config.mysqldatabase
+                    });
+                    con.connect(function(err) {
+                        if (err) {
+                            console.log(err)
+                            return;
+                        }
+                        var sql = `DELETE FROM whitelist WHERE ServerID = ${messageArray[2]}`;
+                        con.query(sql, function (err, result) {
+                            if (err) {
+                                console.log(err)
+                                return;
+                            }
+                            console.log("Attempted to remove whitelist: " + result)
+                            message.channel.send("Attempted to remove server.")
+                        });
+                    })
+                }
                 return;
             }
-            var sql = `INSERT INTO whitelist VALUES (${messageArray[1]}, "${serverName}")`;
-            con.query(sql, function (err, result) {
+            if (!(messageArray[1])) {
+                message.channel.send("Please specify a serverID *and be careful*");
+                return;
+            }
+            var serverName = messageArray.splice(2);
+            const serverNameSpaces = serverName.join(" ");
+            if (!(serverName)) {
+                message.channel.send("Please specify the server's name *and be careful*");
+                return;
+            }
+            var con = mysql.createConnection({
+                host: config.mysqlhost,
+                user: config.mysqluser,
+                password: config.mysqlpassword,
+                database: config.mysqldatabase
+            });
+            con.connect(function(err) {
                 if (err) {
                     console.log(err)
                     return;
                 }
-                console.log("Whitelist result: " + result)
-                message.channel.send("Result: " + result)
-            });
-        })
+                var sql = `INSERT INTO whitelist VALUES (${messageArray[1]}, "${serverNameSpaces}")`;
+                con.query(sql, function (err, result) {
+                    if (err) {
+                        console.log(err)
+                        return;
+                    }
+                    console.log("Attempted to whitelist: " + result)
+                    message.channel.send("Attempted to whitelist this server.")
+                });
+            })
+        }
 }
 
 module.exports.help = {
