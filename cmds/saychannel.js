@@ -11,7 +11,7 @@ module.exports.run = async (client, message, messageArray,args) => {
         const toSend = messageArray.splice(2);
         const sayMessage = toSend.join(" ");
         if (sayMessage === "") {
-            message.channel.send("<:kyukoexc:500205878147022858> you didn't put the channel ID..so i-i have nothing to send :c\n`or you put no message to send after the channel ID UwU`");
+            message.channel.send("<:kyukoexc:500205878147022858> you didn't put the channel ID..so i-i have nothing to send or you put no message to send after the channel ID UwU");
             return;
         }
         else{

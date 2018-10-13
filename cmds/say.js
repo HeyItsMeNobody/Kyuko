@@ -7,10 +7,12 @@ module.exports.run = async (client, message, messageArray,args) => {
     sayMessageFiltered = sayMessage.replace('@', '');
     if (sayMessageFiltered === "") {
         message.channel.send("<:kyukoexc:500205878147022858> You did not give me anything to say~♡")
+        return;
     }
     else {
         message.delete().catch(O_o=>{});
         message.channel.send(sayMessageFiltered);
+        return;
     }
 }
 
