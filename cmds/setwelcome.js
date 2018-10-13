@@ -30,13 +30,13 @@ module.exports.run = async (client, message, messageArray) => {
                         console.log(err);
                         return;
                     }
-                    var sql = `DELETE FROM joinmessages WHERE ServerID = ${message.guild.id}`
+                    var sql = `DELETE FROM joinmessages WHERE ServerID = ${message.guild.id} AND ChannelID = ${message.channel.id}`
                     con.query(sql, function (err, result) {
                         if(err) {
                             console.log(err)
                             return;
                         }
-                        message.channel.send(`<:kyukotick:500258311485128724> I reset the join message!`);
+                        message.channel.send(`<:kyukotick:500258311485128724> I reset the join message for this channel!`);
                     })
                 });
             }
