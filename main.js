@@ -67,10 +67,6 @@ client.on("message", async message => {
 })
 
 client.on("guildMemberAdd", (member) => {
-    console.log(member.displayName)
-    console.log(member.guild.name)
-    console.log(member.guild.id)
-
     var con = mysql.createConnection({
         host: config.mysqlhost,
         user: config.mysqluser,
@@ -90,10 +86,36 @@ client.on("guildMemberAdd", (member) => {
                 console.log(err)
                 return;
             }
-            console.log(result)
-            console.log(result[0].ServerID)
-            console.log(result[0].ChannelID)
-            console.log(result[0].Message)
+            var messageReplaced1 = result[0].Message.replace("user_name", `${member.displayName}`)
+            var messageReplaced2 = messageReplaced1.replace("user_mention", `<@${member.id}>`)
+            if (result.length > 0) {
+                client.channels.get(`${result[0].ChannelID}`).send(`${messageReplaced2}`)
+            }
+            else return;
+        })
+    })
+})
+
+client.on('guildMemberRemove', (member) => {
+    var con = mysql.createConnection({
+        host: config.mysqlhost,
+        user: config.mysqluser,
+        password: config.mysqlpassword,
+        database: config.mysqldatabase,
+        supportBigNumbers: true,
+        bigNumberStrings: true,
+    });
+    con.connect(function(err) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        var sql = `SELECT * FROM leavemessages WHERE ServerID = ${member.guild.id}`
+        con.query(sql, function (err, result) {
+            if (err) {
+                console.log(err)
+                return;
+            }
             var messageReplaced1 = result[0].Message.replace("user_name", `${member.displayName}`)
             var messageReplaced2 = messageReplaced1.replace("user_mention", `<@${member.id}>`)
             if (result.length > 0) {

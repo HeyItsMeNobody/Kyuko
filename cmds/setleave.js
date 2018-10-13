@@ -12,7 +12,7 @@ module.exports.run = async (client, message, messageArray) => {
         const toSend = messageArray.splice(1);
         const sayMessage = toSend.join(" ");
         if (sayMessage === "") {
-            message.channel.send("<:kyukoexc:500205878147022858> Uh~oh please say something i should say when someone joins!")
+            message.channel.send("<:kyukoexc:500205878147022858> Uh~oh please say something i should say when someone leaves!")
             return;
         }
         else {
@@ -30,13 +30,13 @@ module.exports.run = async (client, message, messageArray) => {
                         console.log(err);
                         return;
                     }
-                    var sql = `DELETE FROM joinmessages WHERE ServerID = ${message.guild.id}`
+                    var sql = `DELETE FROM leavemessages WHERE ServerID = ${message.guild.id}`
                     con.query(sql, function (err, result) {
                         if(err) {
                             console.log(err)
                             return;
                         }
-                        message.channel.send(`<:kyukotick:500258311485128724> I reset the join message!`);
+                        message.channel.send(`<:kyukotick:500258311485128724> I reset the leave message!`);
                     })
                 });
             }
@@ -54,13 +54,13 @@ module.exports.run = async (client, message, messageArray) => {
                         console.log(err);
                         return;
                     }
-                    var sql = `INSERT INTO joinmessages VALUES (${message.guild.id}, ${message.channel.id}, "${sayMessage}")`
+                    var sql = `INSERT INTO leavemessages VALUES (${message.guild.id}, ${message.channel.id}, "${sayMessage}")`
                     con.query(sql, function (err, result) {
                         if(err) {
                             console.log(err)
                             return;
                         }
-                        message.channel.send(`<:kyukotick:500258311485128724> *purrrfect~!* i set the welcome message in this channel to ${sayMessage}`);
+                        message.channel.send(`<:kyukotick:500258311485128724> *purrrfect~!* i set the leave message in this channel to ${sayMessage}`);
                     })
                 });
             }
@@ -69,5 +69,5 @@ module.exports.run = async (client, message, messageArray) => {
 }
 
 module.exports.help = {
-    name: "setwelcome"
+    name: "setleave"
 }
