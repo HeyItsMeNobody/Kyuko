@@ -5,8 +5,13 @@ const client = new Discord.Client();
 module.exports.run = async (client, message, messageArray,args) => {
     const sayMessage = args.join(" ");
     sayMessageFiltered = sayMessage.replace('@', '');
-    message.delete().catch(O_o=>{});
-    message.channel.send(sayMessageFiltered);
+    if (sayMessageFiltered === "") {
+        message.channel.send("<:kyukoexc:500205878147022858> You did not give me anything to say~♡")
+    }
+    else {
+        message.delete().catch(O_o=>{});
+        message.channel.send(sayMessageFiltered);
+    }
 }
 
 module.exports.help = {
