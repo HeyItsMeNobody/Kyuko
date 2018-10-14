@@ -90,9 +90,9 @@ client.on("guildMemberAdd", (member) => {
                 console.log(err)
                 return;
             }
-            var messageReplaced1 = result[0].Message.replace("user_name", `${member.displayName}`)
-            var messageReplaced2 = messageReplaced1.replace("user_mention", `<@${member.id}>`)
             if (result.length > 0) {
+                var messageReplaced1 = result[0].Message.replace("user_name", `${member.displayName}`)
+                var messageReplaced2 = messageReplaced1.replace("user_mention", `<@${member.id}>`)
                 client.channels.get(`${result[0].ChannelID}`).send(`${messageReplaced2}`)
             }
             else return;
