@@ -91,9 +91,14 @@ client.on("guildMemberAdd", (member) => {
                 return;
             }
             if (result.length > 0) {
-                var messageReplaced1 = result[0].Message.replace("user_name", `${member.displayName}`)
-                var messageReplaced2 = messageReplaced1.replace("user_mention", `<@${member.id}>`)
-                client.channels.get(`${result[0].ChannelID}`).send(`${messageReplaced2}`)
+                if (result[0]) {
+                    var messageReplaced1 = result[0].Message.replace("user_name", `${member.displayName}`)
+                    var messageReplaced2 = messageReplaced1.replace("user_mention", `<@${member.id}>`)
+                    client.channels.get(`${result[0].ChannelID}`).send(`${messageReplaced2}`)
+                }
+                else {
+                    throw new console.error("Mysql join message result came back with undefined.");
+                }
             }
             else return;
         })
@@ -121,9 +126,14 @@ client.on('guildMemberRemove', (member) => {
                 return;
             }
             if (result.length > 0) {
-                var messageReplaced1 = result[0].Message.replace("user_name", `${member.displayName}`)
-                var messageReplaced2 = messageReplaced1.replace("user_mention", `<@${member.id}>`)
-                client.channels.get(`${result[0].ChannelID}`).send(`${messageReplaced2}`)
+                if (result[0]) {
+                    var messageReplaced1 = result[0].Message.replace("user_name", `${member.displayName}`)
+                    var messageReplaced2 = messageReplaced1.replace("user_mention", `<@${member.id}>`)
+                    client.channels.get(`${result[0].ChannelID}`).send(`${messageReplaced2}`)
+                }
+                else {
+                    throw new console.error("Mysql leave message result came back with undefined.");
+                }
             }
             else return;
         })
