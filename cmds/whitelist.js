@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const mysql = require('mysql');
 const config = require('../config.json');
 
-module.exports.run = async (client, message, messageArray, args, con) => {
+module.exports.run = async (client, message, messageArray, args) => {
         if (!(message.author.id = "98485453258240000")) {
             message.channel.send(":x: You are not a bot moderator!");
             return;
@@ -17,6 +17,12 @@ module.exports.run = async (client, message, messageArray, args, con) => {
                     message.channel.send("Please specify a serverID to remove *and be careful*")
                 }
                 else {
+                    var con = mysql.createConnection({
+                        host: config.mysqlhost,
+                        user: config.mysqluser,
+                        password: config.mysqlpassword,
+                        database: config.mysqldatabase
+                    });
                     con.connect(function(err) {
                         if (err) {
                             console.log(err)
@@ -45,6 +51,12 @@ module.exports.run = async (client, message, messageArray, args, con) => {
                 message.channel.send("Please specify the server's name *and be careful*");
                 return;
             }
+            var con = mysql.createConnection({
+                host: config.mysqlhost,
+                user: config.mysqluser,
+                password: config.mysqlpassword,
+                database: config.mysqldatabase
+            });
             con.connect(function(err) {
                 if (err) {
                     console.log(err)
