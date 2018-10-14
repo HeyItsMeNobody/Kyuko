@@ -5,15 +5,20 @@ const config = require('./config.json');
 const client = new Discord.Client();
 const commands = new  Discord.Collection();
 
+var con = mysql.createConnection({
+    host: config.mysqlhost,
+    user: config.mysqluser,
+    password: config.mysqlpassword,
+    database: config.mysqldatabase,
+    supportBigNumbers: true,
+    bigNumberStrings: true,
+    queueLimit : 0,
+    connectionLimit : 0,
+});
+
 client.on('ready', () => {
     console.log(`I logged in as ${client.user.tag}!~`);
     client.guilds.forEach(guild => {
-        var con = mysql.createConnection({
-            host: config.mysqlhost,
-            user: config.mysqluser,
-            password: config.mysqlpassword,
-            database: config.mysqldatabase
-        });
         con.connect(function(err) {
             if (err) {
                 console.log(err)
@@ -67,18 +72,10 @@ client.on("message", async message => {
     let args = messageArray.slice(1);
 
     let commandfile = commands.get(cmd.slice(prefix.length));
-    if(commandfile) commandfile.run(client, message, messageArray, args);
+    if(commandfile) commandfile.run(client, message, messageArray, args, con);
 })
 
 client.on("guildMemberAdd", (member) => {
-    var con = mysql.createConnection({
-        host: config.mysqlhost,
-        user: config.mysqluser,
-        password: config.mysqlpassword,
-        database: config.mysqldatabase,
-        supportBigNumbers: true,
-        bigNumberStrings: true,
-    });
     con.connect(function(err) {
         if (err) {
             console.log(err);
@@ -101,14 +98,6 @@ client.on("guildMemberAdd", (member) => {
 })
 
 client.on('guildMemberRemove', (member) => {
-    var con = mysql.createConnection({
-        host: config.mysqlhost,
-        user: config.mysqluser,
-        password: config.mysqlpassword,
-        database: config.mysqldatabase,
-        supportBigNumbers: true,
-        bigNumberStrings: true,
-    });
     con.connect(function(err) {
         if (err) {
             console.log(err);
@@ -133,14 +122,6 @@ client.on('guildMemberRemove', (member) => {
 client.on("guildCreate", guild => {
     console.log("Joined a guild: " + guild.name);
 
-    var con = mysql.createConnection({
-        host: config.mysqlhost,
-        user: config.mysqluser,
-        password: config.mysqlpassword,
-        database: config.mysqldatabase,
-        supportBigNumbers: true,
-        bigNumberStrings: true,
-    });
     con.connect(function(err) {
         if (err) {
             console.log(err)

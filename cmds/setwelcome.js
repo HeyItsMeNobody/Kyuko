@@ -3,7 +3,7 @@ const config = require('../config.json');
 const mysql = require('mysql');
 const client = new Discord.Client();
 
-module.exports.run = async (client, message, messageArray) => {
+module.exports.run = async (client, message, messageArray, con) => {
     if (!(message.member.hasPermission('ADMINISTRATOR'))) {
         message.channel.send("<:kyukomad:500205878155411456> You do not have the administrator permission.");
         return;
@@ -17,14 +17,6 @@ module.exports.run = async (client, message, messageArray) => {
         }
         else {
             if (sayMessage === "reset") {
-                var con = mysql.createConnection({
-                    host: config.mysqlhost,
-                    user: config.mysqluser,
-                    password: config.mysqlpassword,
-                    database: config.mysqldatabase,
-                    supportBigNumbers: true,
-                    bigNumberStrings: true,
-                });
                 con.connect(function(err) {
                     if (err) {
                         console.log(err);
@@ -41,14 +33,6 @@ module.exports.run = async (client, message, messageArray) => {
                 });
             }
             else {
-                var con = mysql.createConnection({
-                    host: config.mysqlhost,
-                    user: config.mysqluser,
-                    password: config.mysqlpassword,
-                    database: config.mysqldatabase,
-                    supportBigNumbers: true,
-                    bigNumberStrings: true,
-                });
                 con.connect(function(err) {
                     if (err) {
                         console.log(err);
