@@ -4,28 +4,43 @@
 <title>Commands</title>
 <style>
 body {
-  font-family: 'Mali', cursive;
+  font-family: 'VT323', monospace;
   background: #ffd1e8;
 }
 .card {
-  width: 150px;
-  border: 1px solid #ffd1d4;
+  width: 1075px;
+  border: 1px solid #ff96af;
   border-radius: 4px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background: #ffd2d1;
+  background: #ffd1e4;
 }
 .card-header {
-  color: #551A8B;
+  color: #ff83a0;
   text-align: center;
   font-size: 12px;
   font-weight: 600;
   padding: 5px 10px;
+  font-size: 35px;
 }
 .card-main {
   display: flex;
-  color: black;
+  color: #ff85a2;
+  font-size: 25px;
+}
+.rarg {
+    color: #ff85a2;
+    background-color: white;
+}
+.welcometext {
+  display: flex;
+  color: #ff85a2;
+  font-size: 25px;
+}
+.doll1 {
+  position: absolute;
+  right: 10px;
 }
 </style>
 
@@ -33,12 +48,35 @@ body {
 
 <body>
 
-<link href="https://fonts.googleapis.com/css?family=Mali" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+
+<div class="welcometext">List of all Kyuko's commands</div>
+<div class="welcometext">Required arguments look like&nbsp;<span class="rarg">this</span></div>
+<img src = "images/doll1.gif" class="doll1" height="340" width="200">
 
 <div class="card">
-  <div class="card-header">Card</div>
+  <div class="card-header">Misc</div>
   <div class="card-main">
-    <div class="main-description">woosh</div>
+    <div class="main-description">k!say <span class="rarg">message</span> make the bot say something!<br/>
+    k!ping says pong back<br/>
+    k!help brings you here</div>
+  </div>
+</div>
+<img src = "images/rainbowhearts.gif"><img src = "images/rainbowhearts.gif"><img src = "images/rainbowhearts.gif"><img src = "images/rainbowhearts.gif">
+<div class="card">
+  <div class="card-header">Admin commands</div>
+  <div class="card-main">
+    <div class="main-description">k!saychannel <span class="rarg">channelid message</span> makes the bot say something in a channel<br/>
+    k!setwelcome <span class="rarg">message</span> or <span class="rarg">reset</span> set the welcome message (to mention user use user_mention)<br/>
+    k!setleave <span class="rarg">message</span> or <span class="rarg">reset</span> set the leave message (to mention user use user_mention)</div>
+  </div>
+</div>
+<img src = "images/rainbowhearts.gif"><img src = "images/rainbowhearts.gif"><img src = "images/rainbowhearts.gif"><img src = "images/rainbowhearts.gif">
+<div class="card">
+  <div class="card-header">Bot owner commands</div>
+  <div class="card-main">
+    <div class="main-description">k!whitelist <span class="rarg">serverid servername</span> or <span class="rarg">DELETE serverid</span> whitelists a server<br/>
+    k!setactivity <span class="rarg">type message</span> sets the bots activity</div>
   </div>
 </div>
 
