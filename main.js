@@ -69,7 +69,7 @@ client.on("message", async message => {
     let args = messageArray.slice(1);
 
     let commandfile = commands.get(cmd.slice(prefix.length));
-    if(commandfile) commandfile.run(client, message, messageArray, args);
+    if(commandfile) commandfile.run(client, message, messageArray, args, chalk);
 })
 
 client.on("guildMemberAdd", (member) => {

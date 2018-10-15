@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const mysql = require('mysql');
 const config = require('../config.json');
 
-module.exports.run = async (client, message, messageArray, args) => {
+module.exports.run = async (client, message, messageArray, args, chalk) => {
         if (!(message.author.id = "98485453258240000")) {
             message.channel.send(":x: You are not a bot moderator!");
             return;
