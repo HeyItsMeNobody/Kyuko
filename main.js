@@ -94,9 +94,24 @@ client.on("guildMemberAdd", (member) => {
             }
             if (result.length > 0) {
                 if (result[0]) {
-                    var messageReplaced1 = result[0].Message.replace("user_name", `${member.displayName}`)
-                    var messageReplaced2 = messageReplaced1.replace("user_mention", `<@${member.id}>`)
-                    client.channels.get(`${result[0].ChannelID}`).send(`${messageReplaced2}`)
+                    if (client.channels.has(result[0].ChannelID)) {
+                        var messageReplaced1 = result[0].Message.replace("user_name", `${member.displayName}`)
+                        var messageReplaced2 = messageReplaced1.replace("user_mention", `<@${member.id}>`)
+                        client.channels.get(`${result[0].ChannelID}`).send(`${messageReplaced2}`)
+                    }
+                    else {
+                        console.log(chalk.red(`Channel doesn't exist.. ChannelID: ${result[0].ChannelID} Attempting to delete..`))
+                        var sql = `DELETE FROM joinmessages WHERE ChannelID = ${result[0].ChannelID};`
+                        con.query(sql, function(err, result) {
+                            if (err) {
+                                console.log(err)
+                                return;
+                            }
+                            else {
+                                console.log(chalk.green("Success!"))
+                            }
+                        })
+                    }
                 }
                 else {
                     throw new console.error("Mysql join message result came back with undefined.");
@@ -129,9 +144,24 @@ client.on('guildMemberRemove', (member) => {
             }
             if (result.length > 0) {
                 if (result[0]) {
-                    var messageReplaced1 = result[0].Message.replace("user_name", `${member.displayName}`)
-                    var messageReplaced2 = messageReplaced1.replace("user_mention", `<@${member.id}>`)
-                    client.channels.get(`${result[0].ChannelID}`).send(`${messageReplaced2}`)
+                    if (client.channels.has(result[0].ChannelID)) {
+                        var messageReplaced1 = result[0].Message.replace("user_name", `${member.displayName}`)
+                        var messageReplaced2 = messageReplaced1.replace("user_mention", `<@${member.id}>`)
+                        client.channels.get(`${result[0].ChannelID}`).send(`${messageReplaced2}`)
+                    }
+                    else {
+                        console.log(chalk.red(`Channel doesn't exist.. ChannelID: ${result[0].ChannelID} Attempting to delete..`))
+                        var sql = `DELETE FROM leavemessages WHERE ChannelID = ${result[0].ChannelID};`
+                        con.query(sql, function(err, result) {
+                            if (err) {
+                                console.log(err)
+                                return;
+                            }
+                            else {
+                                console.log(chalk.green("Success!"))
+                            }
+                        })
+                    }
                 }
                 else {
                     throw new console.error("Mysql leave message result came back with undefined.");
