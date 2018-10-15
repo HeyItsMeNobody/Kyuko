@@ -34,8 +34,8 @@ module.exports.run = async (client, message, messageArray, args) => {
                                 console.log(err)
                                 return;
                             }
-                            console.log("Attempted to remove whitelist: " + result)
-                            message.channel.send("Attempted to remove server.")
+                            console.log(chalk.rgb(128,0,128)("Attempted to remove whitelist: ") + result)
+                            message.channel.send("Attempted to remove server whitelist.")
                         });
                     })
                 }
@@ -68,7 +68,7 @@ module.exports.run = async (client, message, messageArray, args) => {
                         console.log(err)
                         return;
                     }
-                    console.log("Attempted to whitelist: " + result)
+                    console.log(chalk.rgb(128,0,128)("Attempted to whitelist: ") + result)
                     message.channel.send("Attempted to whitelist this server.")
                 });
             })

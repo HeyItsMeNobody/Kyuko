@@ -2,11 +2,13 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const mysql = require('mysql');
 const config = require('./config.json');
+const chalk = require('chalk');
+const chalkAnimation = require('chalk-animation');
 const client = new Discord.Client();
 const commands = new  Discord.Collection();
 
 client.on('ready', () => {
-    console.log(`I logged in as ${client.user.tag}!~`);
+    chalkAnimation.rainbow(`Loaded and logged in as ${client.user.tag}!~`);
     client.guilds.forEach(guild => {
         var con = mysql.createConnection({
             host: config.mysqlhost,
@@ -49,7 +51,7 @@ fs.readdir("./cmds/", (err, files) => {
 
     jsfile.forEach((f, i) => {
         let props = require(`./cmds/${f}`);
-        console.log(`${f} loaded! OwO`);
+        console.log(chalk.rgb(128,0,128)(`${f} loaded! OwO`));
         commands.set(props.help.name, props);
     });
 });
