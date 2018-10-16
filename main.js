@@ -197,7 +197,7 @@ client.on("guildCreate", guild => {
             }
             if (result.length > 0) {
                 const embed = { 
-                    "title": "Thank you for inviting me~!", "description": "Why don't you join our [home server](https://discord.gg/PRk9sdg) and if you need help and left the support server pls rejoin [the server](https://discord.gg/PRk9sdg) ~☆ ", "url": "", "color": 12168425, 
+                    "title": "Thank you for inviting me~!", "description": "Why don't you join our [support server?](https://discord.gg/V2b9Emc) ~☆ ", "url": "", "color": 12168425, 
                     "timestamp": "2018-10-11T07:53:55.490Z", "footer": { 
                     "text": "Spreading love faster than the speed of light~♡" 
                     
@@ -209,7 +209,7 @@ client.on("guildCreate", guild => {
                      }, 
                     
                     "fields": [ 
-                    { "name": "**Credits**", "value": "**Profile picture:** \nVia pintrest \n\n**Server Owners:** \nCattery: fayercx#2931 \nSupport Server:fayercx#2931 \n\n**Bot developer:** nobodycx#0384\n\n~~fayercx just does embeds~~" 
+                    { "name": "**Credits**", "value": "**Profile picture:** \nVia pinterest \n\n**Server Owners:** \nCattery: fayercx#2931 \nSupport Server:fayercx#2931 \n\n**Bot developer:** nobodycx#0384\n\n~~fayercx just does embeds~~" 
                     
                     }
                     
