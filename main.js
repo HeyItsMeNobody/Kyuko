@@ -197,7 +197,7 @@ client.on("guildCreate", guild => {
             }
             if (result.length > 0) {
                 const embed = { 
-                    "title": "Thank you for inviting me~!", "description": "Why don't you join our [support server?](https://discord.gg/V2b9Emc) ~☆ ", "url": "", "color": 12168425, 
+                    "title": "Thank you for inviting me~!", "description": "Why don't you join our [support server?](https://discord.gg/hbmM58v) ~☆ ", "url": "", "color": 12168425, 
                     "timestamp": "2018-10-11T07:53:55.490Z", "footer": { 
                     "text": "Spreading love faster than the speed of light~♡" 
                     
